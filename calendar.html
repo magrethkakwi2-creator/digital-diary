@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar - My Digital Diary</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #444;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff9800;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    #calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 20px;
+    }
+
+    .day {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .day:hover {
+      background: #ff9800;
+      color: white;
+    }
+
+    .header-day {
+      font-weight: bold;
+      background: #222;
+      color: white;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #222;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📅 Calendar</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="entries.html">Diary Entries</a>
+    <a href="expenditure.html">Expenditure</a>
+  </nav>
+
+  <main>
+    <h2>Click a day to add or view entries</h2>
+    <div id="calendar"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Digital Diary | Built with ❤️</p>
+  </footer>
+
+  <script>
+    const calendar = document.getElementById('calendar');
+    const daysOfWeek = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    // Add day headers
+    daysOfWeek.forEach(day => {
+      const header = document.createElement('div');
+      header.classList.add('header-day');
+      header.textContent = day;
+      calendar.appendChild(header);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Blank days before first day
+    for(let i=0; i<firstDay; i++){
+      const blank = document.createElement('div');
+      calendar.appendChild(blank);
+    }
+
+    // Days of the month
+    for(let day=1; day<=daysInMonth; day++){
+      const dayCell = document.createElement('div');
+      dayCell.classList.add('day');
+      dayCell.textContent = day;
+      dayCell.onclick = () => alert(`You clicked on ${day}/${month+1}/${year}`);
+      calendar.appendChild(dayCell);
+    }
+  </script>
+</body>
+</html>
+
